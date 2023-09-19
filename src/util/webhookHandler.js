@@ -181,16 +181,36 @@ module.exports = class WebhookHandler {
             const webhookClient = new WebhookClient({id: webhook.id, token: webhook.token});
             if (!webhookClient) return this.webhookFallBack(channel, channelId, message, false);
 
-           const fallbackThread = await webhookClient
-                .send(message)
-                .catch(err => {
-                    return this.webhookFallBack(channel, channelId, message, false);
-                });
-                if(!thread) return;
-                this.c.rest.post('/channels/' + channelId + '/messages/' + fallbackThread.id + '/threads', {headers: { name: 'Mixed - Daily Message', auto_archive_duration: "1440" }});
-        } else {
-            const webhook = new WebhookClient({id: webhookData?.id, token: webhookData?.token});
-            if (!webhook) return this.webhookFallBack(channel, channelId, message);
+      const fallbackThread = await webhookClient.send(message).catch((err) => {
+        Sentry.captureException(err);
+        return this.webhookFallBack(channel, channelId, message, false);
+      });
+      if (!thread) return;
+      this.c.rest.post(
+        "/channels/" +
+        channelId +
+        "/messages/" +
+        fallbackThread.id +
+        "/threads",
+        {
+          body: {
+            name: `${[
+              date.getFullYear(),
+              date.getMonth() + 1,
+              date.getDate(),
+            ].join("/")} - Daily Message`,
+            auto_archive_duration: "1440",
+          },
+        },
+      ).catch((err) => {
+        Sentry.captureException(err);
+      });
+    } else {
+      const webhook = new WebhookClient({
+        id: webhookData?.id,
+        token: webhookData?.token,
+      });
+      if (!webhook) return this.webhookFallBack(channel, channelId, message);
 
             const webhookThread = await webhook
             .send(message)
