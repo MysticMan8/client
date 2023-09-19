@@ -49,7 +49,9 @@ module.exports = class DailyMessage {
       if (!db.dailyMsg) continue;
       i++;
       setTimeout(async () => {
-        const channel = await this.client.channels
+        let channel;
+        channel = this.client.channels.get(db.dailyChannel);
+        if (!channel) channel = await this.client.channels
           .fetch(db.dailyChannel)
           .catch((err) => {
             Sentry.captureException(err);
