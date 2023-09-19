@@ -1,12 +1,9 @@
-const {
-  ButtonBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-} = require("discord.js");
+const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const { ChalkAdvanced } = require("chalk-advanced");
 const voteSchema = require("../util/Models/voteModel");
 const QuickChart = require("quickchart-js");
 const { v4: uuidv4 } = require("uuid");
+const Sentry = require("@sentry/node");
 
 const chart = new QuickChart();
 chart.setWidth(750);
@@ -47,7 +44,7 @@ module.exports = class Voting {
     until = 0,
     type = 0,
     op_one,
-    op_tow
+    op_tow,
   ) {
     let g;
     if (guildId !== null && typeof guildId === "string")
@@ -84,16 +81,16 @@ module.exports = class Voting {
         row.addComponents([
           new ButtonBuilder()
             .setCustomId(`result_${voteId}`)
-            .setLabel('Results')
+            .setLabel("Results")
             .setDisabled(false)
             .setStyle(ButtonStyle.Secondary),
           new ButtonBuilder()
             .setCustomId(`voting_${voteId}_0`)
-            .setLabel('✅')
+            .setLabel("✅")
             .setStyle(ButtonStyle.Primary),
           new ButtonBuilder()
             .setCustomId(`voting_${voteId}_1`)
-            .setLabel('❌')
+            .setLabel("❌")
             .setStyle(ButtonStyle.Primary),
         ]);
         break;
@@ -144,18 +141,18 @@ module.exports = class Voting {
       g = this.client.database.getGuild(String(vote.guildId));
 
     const all_votes = Number(
-      vote.votes.op_one?.length + vote.votes.op_two?.length
+      vote.votes.op_one?.length + vote.votes.op_two?.length,
     );
     const option_1 = Number(vote.votes.op_one?.length);
     const option_2 = Number(vote.votes.op_two?.length);
 
     const numbers = { op_one: 1, op_two: 2 };
-    const phrases = { op_one: 'Yes', op_two: 'No' };
+    const phrases = { op_one: "Yes", op_two: "No" };
     const chartData = Object.keys(vote.votes).map((e) =>
-      Number(all_votes > 0 ? vote.votes[e].length : 1)
+      Number(all_votes > 0 ? vote.votes[e].length : 1),
     );
-    const chartLabels = Object.keys(vote.votes).map(
-      (e) => vote.type == 0 ? "Question #" + numbers[e] : phrases[e]
+    const chartLabels = Object.keys(vote.votes).map((e) =>
+      vote.type == 0 ? "Question #" + numbers[e] : phrases[e],
     );
 
     chart.setConfig({
@@ -211,7 +208,8 @@ module.exports = class Voting {
       const votes = await voteSchema.find();
       votes.forEach((vote) => {
         if (olderthen(new Date(vote.createdAt), 30))
-          return voteSchema.deleteOne({ id: vote.id }).catch((e) => {
+          return voteSchema.deleteOne({ id: vote.id }).catch((err) => {
+            Sentry.captureException(err);
             return;
           });
         this._cache.set(vote.id, vote);
@@ -219,8 +217,8 @@ module.exports = class Voting {
 
       console.log(
         `${ChalkAdvanced.white("Would You?")} ${ChalkAdvanced.gray(
-          ">"
-        )} ${ChalkAdvanced.green("Successfully loaded votes from database")}`
+          ">",
+        )} ${ChalkAdvanced.green("Successfully loaded votes from database")}`,
       );
     }, 500);
   }

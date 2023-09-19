@@ -24,7 +24,9 @@
   "Wwyd": {
     "embed": {
       "title": "Was **würdest du** tuen?",
-      "footer": "Erkläre was und warum"
+      "footer": "Erkläre was und warum",
+      "option1": "Option 1",
+      "option2": "Option 2"
     }
   },
   "Support": {
@@ -37,6 +39,7 @@
   "wyCustom": {
     "error": {
       "paginate": "Du kannst nichmehr weiter gehen :(",
+      "issue": "Diese Nachricht kann nicht abgerufen werden. Wiederhole den Befehl, um benutzerdefinierte Nachrichten anzuzeigen.",
       "maximum": "Du hast die maximale Anzahl an benutzerdefinierten Nachrichten erreicht. Du kannst mehr hinzufügen wenn du für den bot votest!",
       "empty": "Es gibt keine benutzerdefinierten nachrichten in diesem server!",
       "import": {
@@ -81,8 +84,8 @@
       },
       "paginator": {
         "title": "Would You benutzerdefinierte Nachrichten",
-        "descCatNHIE": "**Kategorie**: Nie habe ich je",
-        "descCatWYR": "**Kategorie**: Would You Rather",
+        "descCatNHIE": "**Kategorie**: Nie habe ich jemals",
+        "descCatWYR": "**Kategorie**: Würdest du eher",
         "descCatWWYD": "**Kategorie**: Was würdest du tun"
       }
     }
@@ -200,47 +203,63 @@
   "Settings": {
     "errorSame": "Die gegebene Zeitzone ist die gleiche Zeitzone, die schon gesetzt ist. Stelle sicher, dass du eine andere Zeitzone wählst.",
     "errorInvalid": "Die gegebene Zeitzone ist ungültig, du kannst eine gültige Zeitzone von diesen auswählen [Zeitzonenwähler](https://kevinnovak.github.io/Time-Zone-Picker/)",
-    "intervalSame": "Das angegebene Intervall ist der gleiche Intervall, der bereits gesetzt ist. Stelle sicher, dass du einen anderen Intervall wählst.",
-    "intervalInvalid": "Der vorausgesetzte Intervall war ungültig. Stelle sicher, dass dein Intervall im 24h-Format ist und entweder 00 oder 30 sind!",
+    "intervalSame": "Die angegebene Veröffentlichungszeit ist die gleiche wie die bereits gesetzte. Stelle sicher, dass du einen andere Veröffentlichungszeit wählst.",
+    "intervalInvalid": "Die angegebene Veröffentlichungszeit war ungültig. Stelle sicher, dass deine Veröffentlichungszeit im 24h-Format ist und entweder mit 00 oder 30 endet!",
     "dailyChannel": "Wähle einen Kanal, in dem du tägliche Nachrichten haben möchtest!",
+    "replayChannel": "Wähle einen Kanal, dem du einen Cooldown hinzufügen möchtest!",
+    "replayChannelNone": "Du hast keine Replay-Kanäle gesetzt!",
+    "replayCooldownMin": "Die Abklingzeit ist zu kurz, stelle sicher, dass die Abklingzeit über 2 Sekunden liegt! (2000 Millisekunden)",
+    "replayChannelAlready": "Der zur Verfügung gestellte Kanal hat bereits einen Cooldown!",
+    "replayDelete": "Wähle einen Kanal, dem du einen Cooldown hinzufügen möchtest!",
+    "cooldownTooLong": "Die Abklingzeit ist zu lang, stelle sicher, dass die Abklingzeit nicht über 6 stunden liegt! (21600000 Millisekunden)!",
+    "replayChannelLimit": "Du kannst dem Cooldown nur 15 Kanäle hinzufügen!",
     "dailyType": "Wähle eine Art der täglichen Nachricht aus, die du senden willst!",
-    "welcomeType": "Wähle die Art der Willkommensnachricht aus, die du erhalten möchtest!",
+    "welcomeType": "Wähle eine Art der täglichen Nachricht aus, die du senden willst!",
     "dailyRole": "Wähle eine Rolle, die du in täglichen Nachrichten gepingt haben möchtest!",
     "replaySame": "Die angegebene replay Cooldown ist derselbe Cooldown, der bereits gesetzt ist. Stelle sicher, dass du einen andere Cooldown wählst.",
     "voteSame": "Die angegebene vote Cooldown ist derselbe Cooldown, der bereits gesetzt ist. Stelle sicher, dass du einen andere Cooldown wählst.",
     "cooldownInvalid": "Der Cooldown ist ungültig. Stelle sicher, dass der Cooldown nur Zahlen enthält!",
-    "welcomeTestSuccess": "Dies ist eine Testnachricht, die zeigt, wie Willkommensnachrichten aussehen können.",
+    "welcomeTestSuccess": "Dies ist eine Testnachricht, die zeigt, wie Willkommensnachrichten aussehen.",
     "embed": {
       "generalTitle": "Would You - Generelle Einstellungen",
       "replayCooldown": "**Replay Cooldown**",
-      "dailyInterval": "**Intervall**",
+      "replayType": "**Replay-Typ**",
+      "replayChannels": "**Replay-Kanäle**",
+      "replayChannelsNone": "Keine",
+      "dailyInterval": "**Veröffentlichungszeit**",
       "dailyTitle": "Would You - Tägliche Nachrichten",
       "dailyType": "**Typ**",
       "dailyMsg": "**Aktiviert**",
       "dailyRole": "**Rolle**",
       "dailyChannel": "**Kanal**",
       "dailyTimezone": "**Zeitzone**",
+      "dailyThread": "**Threads**",
       "welcomeTitle": "Would You - Wilkommen",
       "welcome": "**Aktiviert**",
       "welcomeChannel": "**Kanal**",
       "welcomePing": "**Benutzer Pings**",
       "footer": "Would You",
-      "dailyThread": "**Threads**",
-      "error": "Dir fehlt die Berechtigung `Manage_GUILD` um diesen Befehl auszuführen."
+      "error": "Dir fehlen die `Manage Guild` rechte um diesen Befehl auszuführen!"
     },
     "button": {
-      "dailyInterval": "Intervall festlegen",
+      "dailyInterval": "Veröffentlichungszeit festlegen",
       "dailyChannel": "Kanal setzen",
       "dailyRole": "Rolle setzen",
       "dailyTimezone": "Zeitzone setzen",
       "dailyType": "Typ setzen",
-      "welcomeTest": "Testnachricht senden",
+      "welcomeTest": "Test senden",
+      "dailyThread": "Threads umschalten",
       "dailyMsg": "Tägliche Nachrichten umschalten",
       "replayCooldown": "Replay Cooldown setzen",
+      "replayDeleteChannels": "Replay-Kanäle löschen",
+      "replayType": "Replay-Typ",
       "welcomeChannel": "Kanal setzen",
       "welcome": "Begrüßungsnachrichten einstellen",
-      "welcomePing": "Nutzer ping einstellen",
-      "dailyThread": "Threads umschalten"
+      "welcomePing": "Nutzer ping einstellen"
+    },
+    "modal": {
+      "dailyIntervalTitle": "Tägliche Veröffentlichungszeit",
+      "dailyIntervalDescription": "Wann sollen wir die Nachricht senden? (HH:MM)"
     }
   },
   "Debug": {
@@ -274,6 +293,8 @@
   },
   "Voting": {
     "Yes": "Ja",
-    "No": "Nein"
+    "No": "Nein",
+    "Vote": "Vote: ",
+    "VotingResults": "Abstimmungsergebnis"
   }
 }
